@@ -10,6 +10,7 @@
 		253676A72F615E13A0BCEFE3 /* Pods_TechMarket_TechMarketUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAC388D8B6686F02C0D673A /* Pods_TechMarket_TechMarketUITests.framework */; };
 		41347F39952AAAC3D23F0995 /* Pods_TechMarketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B1C1D998F5283720D175E4 /* Pods_TechMarketTests.framework */; };
 		75511DB2FAD12D1A4307F3C2 /* Pods_TechMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BDFCACB2BE844FDECB0FA8 /* Pods_TechMarket.framework */; };
+		9BC74152294F3E8F009B211F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC74151294F3E8E009B211F /* Model.swift */; };
 		9BC90E3B294EEAEC000FF10C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3A294EEAEC000FF10C /* AppDelegate.swift */; };
 		9BC90E3D294EEAEC000FF10C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3C294EEAEC000FF10C /* SceneDelegate.swift */; };
 		9BC90E3F294EEAEC000FF10C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3E294EEAEC000FF10C /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 		9BC90E5E294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E5D294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift */; };
 		9BC90E6C294EEB8B000FF10C /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E6B294EEB8B000FF10C /* AppDependency.swift */; };
 		9BC90E70294EEDBA000FF10C /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E6F294EEDBA000FF10C /* MainViewModel.swift */; };
+		9BC90E78294EF6F8000FF10C /* ProductResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E77294EF6F8000FF10C /* ProductResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,7 @@
 		39BDFCACB2BE844FDECB0FA8 /* Pods_TechMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55457E4D24CDC993A35B7CF9 /* Pods-TechMarket-TechMarketUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechMarket-TechMarketUITests.debug.xcconfig"; path = "Target Support Files/Pods-TechMarket-TechMarketUITests/Pods-TechMarket-TechMarketUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		81B1C1D998F5283720D175E4 /* Pods_TechMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BC74151294F3E8E009B211F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		9BC90E37294EEAEC000FF10C /* TechMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC90E3A294EEAEC000FF10C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BC90E3C294EEAEC000FF10C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +61,7 @@
 		9BC90E5D294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9BC90E6B294EEB8B000FF10C /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		9BC90E6F294EEDBA000FF10C /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		9BC90E77294EF6F8000FF10C /* ProductResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductResponse.swift; sourceTree = "<group>"; };
 		A567CFF2AA3BDAABB5987D31 /* Pods-TechMarket-TechMarketUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechMarket-TechMarketUITests.release.xcconfig"; path = "Target Support Files/Pods-TechMarket-TechMarketUITests/Pods-TechMarket-TechMarketUITests.release.xcconfig"; sourceTree = "<group>"; };
 		AEA4F3FB08570A5FA6AFF4E4 /* Pods-TechMarketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechMarketTests.debug.xcconfig"; path = "Target Support Files/Pods-TechMarketTests/Pods-TechMarketTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C391B878BCD859B93348945F /* Pods-TechMarket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechMarket.release.xcconfig"; path = "Target Support Files/Pods-TechMarket/Pods-TechMarket.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				9BC90E6A294EEB47000FF10C /* Entry */,
+				9BC90E76294EF6B1000FF10C /* Model */,
 				9BC90E6D294EEC81000FF10C /* Domain */,
 				9BC90E6E294EEC86000FF10C /* SupportFiles */,
 			);
@@ -179,6 +184,15 @@
 				9BC90E48294EEAED000FF10C /* Info.plist */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		9BC90E76294EF6B1000FF10C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9BC74151294F3E8E009B211F /* Model.swift */,
+				9BC90E77294EF6F8000FF10C /* ProductResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E9FFB1D562BDAD0DC827366E /* Pods */ = {
@@ -450,8 +464,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC90E78294EF6F8000FF10C /* ProductResponse.swift in Sources */,
 				9BC90E70294EEDBA000FF10C /* MainViewModel.swift in Sources */,
 				9BC90E3F294EEAEC000FF10C /* MainViewController.swift in Sources */,
+				9BC74152294F3E8F009B211F /* Model.swift in Sources */,
 				9BC90E3B294EEAEC000FF10C /* AppDelegate.swift in Sources */,
 				9BC90E6C294EEB8B000FF10C /* AppDependency.swift in Sources */,
 				9BC90E3D294EEAEC000FF10C /* SceneDelegate.swift in Sources */,
