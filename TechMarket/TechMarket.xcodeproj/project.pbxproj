@@ -122,6 +122,8 @@
 		9B2D0A67294FDA54001A8482 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				9BC90E3E294EEAEC000FF10C /* MainViewController.swift */,
+				9BC90E6F294EEDBA000FF10C /* MainViewModel.swift */,
 				9B2D0A68294FDA60001A8482 /* MainViewCell.swift */,
 			);
 			path = Main;
@@ -201,8 +203,6 @@
 		9BC90E6D294EEC81000FF10C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				9BC90E3E294EEAEC000FF10C /* MainViewController.swift */,
-				9BC90E6F294EEDBA000FF10C /* MainViewModel.swift */,
 				9B2D0A67294FDA54001A8482 /* Main */,
 			);
 			path = Domain;
