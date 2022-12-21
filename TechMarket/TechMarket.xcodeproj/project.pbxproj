@@ -10,6 +10,7 @@
 		253676A72F615E13A0BCEFE3 /* Pods_TechMarket_TechMarketUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAAC388D8B6686F02C0D673A /* Pods_TechMarket_TechMarketUITests.framework */; };
 		41347F39952AAAC3D23F0995 /* Pods_TechMarketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B1C1D998F5283720D175E4 /* Pods_TechMarketTests.framework */; };
 		75511DB2FAD12D1A4307F3C2 /* Pods_TechMarket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BDFCACB2BE844FDECB0FA8 /* Pods_TechMarket.framework */; };
+		9B2D0A69294FDA60001A8482 /* MainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D0A68294FDA60001A8482 /* MainViewCell.swift */; };
 		9BC74152294F3E8F009B211F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC74151294F3E8E009B211F /* Model.swift */; };
 		9BC90E3B294EEAEC000FF10C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3A294EEAEC000FF10C /* AppDelegate.swift */; };
 		9BC90E3D294EEAEC000FF10C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3C294EEAEC000FF10C /* SceneDelegate.swift */; };
@@ -49,6 +50,7 @@
 		39BDFCACB2BE844FDECB0FA8 /* Pods_TechMarket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechMarket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55457E4D24CDC993A35B7CF9 /* Pods-TechMarket-TechMarketUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TechMarket-TechMarketUITests.debug.xcconfig"; path = "Target Support Files/Pods-TechMarket-TechMarketUITests/Pods-TechMarket-TechMarketUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		81B1C1D998F5283720D175E4 /* Pods_TechMarketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TechMarketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B2D0A68294FDA60001A8482 /* MainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCell.swift; sourceTree = "<group>"; };
 		9BC74151294F3E8E009B211F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		9BC90E37294EEAEC000FF10C /* TechMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TechMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC90E3A294EEAEC000FF10C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 				81B1C1D998F5283720D175E4 /* Pods_TechMarketTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9B2D0A67294FDA54001A8482 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				9B2D0A68294FDA60001A8482 /* MainViewCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		9BC90E2E294EEAEC000FF10C = {
@@ -179,6 +189,7 @@
 			children = (
 				9BC90E3E294EEAEC000FF10C /* MainViewController.swift */,
 				9BC90E6F294EEDBA000FF10C /* MainViewModel.swift */,
+				9B2D0A67294FDA54001A8482 /* Main */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -483,6 +494,7 @@
 			files = (
 				9BC90E78294EF6F8000FF10C /* ProductResponse.swift in Sources */,
 				9BC90E70294EEDBA000FF10C /* MainViewModel.swift in Sources */,
+				9B2D0A69294FDA60001A8482 /* MainViewCell.swift in Sources */,
 				9BC90E3F294EEAEC000FF10C /* MainViewController.swift in Sources */,
 				9BC90E73294EF486000FF10C /* TechMarketAPI.swift in Sources */,
 				9BC90E75294EF67D000FF10C /* NetworkManager.swift in Sources */,
