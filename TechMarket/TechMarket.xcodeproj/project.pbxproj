@@ -204,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				9B2D0A67294FDA54001A8482 /* Main */,
+				9BFE75BC2953A05C002DE839 /* Detail */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -235,6 +236,13 @@
 				9BC90E77294EF6F8000FF10C /* ProductResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9BFE75BC2953A05C002DE839 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		E9FFB1D562BDAD0DC827366E /* Pods */ = {
