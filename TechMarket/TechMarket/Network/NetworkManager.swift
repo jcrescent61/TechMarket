@@ -41,8 +41,9 @@ extension URLSession: Requester {
 protocol Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
+        dataType: T.Type,
         params: [String: Any]?
-    ) -> Single<Result<T, Error>>
+    ) -> Single<T>
 }
 
 class Networker {
@@ -65,8 +66,9 @@ class Networker {
 extension Networker: Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
+        dataType: T.Type,
         params: [String: Any]? = nil
-    ) -> Single<Result<T, Error>> {
+    ) -> Single<T> {
         switch api.method {
         case .get:
             var urlComponents = URLComponents(string: self.baseURL + api.path)
@@ -79,7 +81,7 @@ extension Networker: Networkerable {
             urlComponents?.queryItems = parameters
             
             guard let url = urlComponents?.url else {
-                return Single.just(.failure(NSError(domain: "URL Not Found", code: -998)))
+                return .error(NSError(domain: "URL Not Found", code: -998))
             }
             
             var urlRequest = URLRequest(url: url)
@@ -96,7 +98,7 @@ extension Networker: Networkerable {
             let urlComponents = URLComponents(string: self.baseURL + api.path)
             
             guard let url = urlComponents?.url else {
-                return Single.just(.failure(NSError(domain: "URL Not Found", code: -998)))
+                return Single.error(NSError(domain: "URL Not Found", code: -998))
             }
             var urlRequest = URLRequest(url: url)
             
@@ -117,8 +119,8 @@ extension Networker: Networkerable {
 private extension Networker {
     func request<T: Decodable>(
         urlRequest: URLRequest
-    ) -> Single<Result<T, Error>> {
-        return Single<Result<T, Error>>.create { [weak self] single in
+    ) -> Single<T> {
+        return Single<T>.create { [weak self] single in
             guard let self = self else {
                 single(.failure(NSError(domain: "UnKnown Error", code: -999)))
                 return Disposables.create()
@@ -131,7 +133,7 @@ private extension Networker {
                         guard let json = try? JSONDecoder().decode(T.self, from: data) else {
                             return single(.failure(NSError(domain: "JSONParsing Error", code: -996)))
                         }
-                        return single(.success(.success(json)))
+                        return single(.success(json))
                     } else {
                         return single(.failure(NSError(domain: "Data Parsing Error", code: -997)))
                     }
