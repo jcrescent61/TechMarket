@@ -37,7 +37,7 @@ extension UIImageView {
     
     func loadImage(from url: URL?, with thumnailImage: UIImage? = nil) {
         image = thumnailImage
-        backgroundColor = .darkGray
+        backgroundColor = .clear
         
         guard let url = url else { return }
         
