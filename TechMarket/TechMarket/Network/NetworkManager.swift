@@ -41,7 +41,7 @@ extension URLSession: Requester {
 protocol Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
-        parameters: [String: String]?
+        params: [String: Any]?
     ) -> Single<Result<T, Error>>
 }
 
@@ -49,7 +49,7 @@ class Networker {
     
     private var baseURL: String = "https://openmarket.yagom-academy.kr"
     
-    private lazy var header: [String: String] = {
+    private lazy var header: [String: Any] = {
         return [:]
     }()
     
@@ -65,15 +65,15 @@ class Networker {
 extension Networker: Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
-        parameters: [String: String]? = nil
+        params: [String: Any]? = nil
     ) -> Single<Result<T, Error>> {
         switch api.method {
         case .get:
             var urlComponents = URLComponents(string: self.baseURL + api.path)
             
             var parameters: [URLQueryItem] = []
-            api.params?.forEach({ key, value in
-                parameters.append(URLQueryItem(name: key, value: value))
+            params?.forEach({ key, value in
+                parameters.append(URLQueryItem(name: key, value: String(describing: value)))
             })
             
             urlComponents?.queryItems = parameters
@@ -87,7 +87,7 @@ extension Networker: Networkerable {
             urlRequest.httpMethod = api.method.rawValue
             
             self.header.forEach { key, value in
-                urlRequest.addValue(value, forHTTPHeaderField: key)
+                urlRequest.addValue(String(describing: value), forHTTPHeaderField: key)
             }
             
             return request(urlRequest: urlRequest)
@@ -106,7 +106,7 @@ extension Networker: Networkerable {
             urlRequest.httpBody = jsonData
             
             self.header.forEach { key, value in
-                urlRequest.addValue(value, forHTTPHeaderField: key)
+                urlRequest.addValue(String(describing: value), forHTTPHeaderField: key)
             }
             
             return request(urlRequest: urlRequest)
