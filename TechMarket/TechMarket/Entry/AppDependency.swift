@@ -21,7 +21,7 @@ enum CompositionRoot {
         let window = UIWindow(windowScene: scene)
         window.rootViewController = UINavigationController(
             rootViewController: MainViewController.instance(
-                viewModel: MainViewModel()
+                viewModel: MainViewModel(networker: Networker())
             )
         )
         window.backgroundColor = .white
