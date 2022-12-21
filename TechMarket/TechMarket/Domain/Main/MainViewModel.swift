@@ -41,6 +41,7 @@ final class MainViewModel: MainViewModelable {
     private var hasNextPage = false
     private let viewDidLoadRelay = PublishRelay<Void>()
     private let sectionRelay = PublishRelay<[SectionModel<ProductSection, Model.Product>]>()
+    private var isRequest = false
     
     init(
         networker: Networkerable
@@ -49,28 +50,29 @@ final class MainViewModel: MainViewModelable {
     }
     
     private func fetchProducts() {
+        guard isRequest == false else { return }
+        isRequest = true
+        
         networker.request(
             ProductConnectionAPI.productConnection,
+            dataType: Model.ProductResponse.self,
             params: [
                 "page_no" : currentPage,
                 "items_per_page": itemsPerPage
             ]
         )
-        .debug()
-        .subscribe { [weak self] (result: Result<Model.ProductResponse, Error>) in
+        .subscribe(onSuccess: { [weak self] model in
             guard let self = self else { return }
-            switch result {
-            case .success(let model):
-                self.currentPage += 1
-                self.products.append(contentsOf: model.pages)
-                if let hasNextPage = model.hasNext {
-                    self.hasNextPage = hasNextPage
-                }
-                self.sectionRelay.accept([.init(model: .productResponse, items: self.products)])
-            case .failure(let error):
-                print("error \(error)")
-            }
-        }
+            self.products.append(contentsOf: model.pages)
+            self.sectionRelay.accept(
+                [.init(model: .productResponse, items: self.products)]
+            )
+        }, onFailure: { error in
+            print("error \(error)")
+        }, onDisposed: { [weak self] in
+            guard let self = self else { return }
+            self.isRequest = false
+        })
         .disposed(by: bag)
     }
 }
@@ -82,7 +84,7 @@ extension MainViewModel: MainViewModelInputInterface {
     }
     
     func updatePageIfNeeded(row: Int) {
-        if self.products.count - 1 == row {
+        if self.products.count - 1 <= row {
             fetchProducts()
         }
     }
