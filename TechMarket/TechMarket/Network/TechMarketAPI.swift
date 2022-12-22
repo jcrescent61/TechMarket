@@ -13,20 +13,39 @@ protocol ServerAPI {
     var params: [String: String]? { get }
 }
 
-enum ProductConnectionAPI {
-    case productConnection
+enum TechMarketAPI {
+    case productConnection(page: Int, itemsPerPage: Int)
+    case productDetail(Int)
 }
 
-extension ProductConnectionAPI: ServerAPI {
+extension TechMarketAPI: ServerAPI {
     var method: HTTPMethod {
-        return .get
+        switch self {
+        case .productConnection:
+            return .get
+        case .productDetail:
+            return .get
+        }
     }
     
     var path: String {
-        return "/api/products"
+        switch self {
+        case .productConnection:
+            return "/api/products"
+        case .productDetail(let id):
+            return "/api/products/\(id)"
+        }
     }
     
-    var params: [String : String]? {
-        return [:]
+    var params: [String: String]? {
+        switch self {
+        case .productConnection(let page, let itemsPerPage):
+            return [
+                "page_no" : String(page),
+                "items_per_page": String(itemsPerPage)
+            ]
+        case .productDetail:
+            return [:]
+        }
     }
 }

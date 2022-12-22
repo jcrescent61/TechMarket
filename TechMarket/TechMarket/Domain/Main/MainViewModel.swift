@@ -58,12 +58,11 @@ final class MainViewModel: MainViewModelable {
         isRequest = true
         
         networker.request(
-            ProductConnectionAPI.productConnection,
-            dataType: Model.ProductResponse.self,
-            params: [
-                "page_no" : currentPage,
-                "items_per_page": itemsPerPage
-            ]
+            TechMarketAPI.productConnection(
+                page: currentPage,
+                itemsPerPage: itemsPerPage
+            ),
+            dataType: Model.ProductResponse.self
         )
         .subscribe(onSuccess: { [weak self] model in
             guard let self = self else { return }
@@ -83,7 +82,6 @@ final class MainViewModel: MainViewModelable {
 
 extension MainViewModel: MainViewModelInputInterface {
     func viewDidLoad() {
-        viewDidLoadRelay.accept(())
         fetchProducts()
     }
     

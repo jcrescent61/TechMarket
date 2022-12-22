@@ -41,8 +41,7 @@ extension URLSession: Requester {
 protocol Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
-        dataType: T.Type,
-        params: [String: Any]?
+        dataType: T.Type
     ) -> Single<T>
 }
 
@@ -66,15 +65,14 @@ class Networker {
 extension Networker: Networkerable {
     func request<T: Decodable>(
         _ api: ServerAPI,
-        dataType: T.Type,
-        params: [String: Any]? = nil
+        dataType: T.Type
     ) -> Single<T> {
         switch api.method {
         case .get:
             var urlComponents = URLComponents(string: self.baseURL + api.path)
             
             var parameters: [URLQueryItem] = []
-            params?.forEach({ key, value in
+            api.params?.forEach({ key, value in
                 parameters.append(URLQueryItem(name: key, value: String(describing: value)))
             })
             
