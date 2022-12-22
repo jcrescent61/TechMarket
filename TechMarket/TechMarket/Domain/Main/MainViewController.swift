@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxCocoa
 import RxDataSources
 import Then
 
@@ -50,14 +51,36 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func bind() {
-        mainViewModel?.output.sectionObservable
-            .asDriver(onErrorJustReturn: [])
-            .drive (self.collectionView.rx.items(dataSource: createDatasource()))
-            .disposed(by: bag)
-        
+        // MARK: - Input
         collectionView.rx.willDisplayCell
             .subscribe (onNext: { [weak self] (_, indexpath) in
                 self?.mainViewModel?.input.updatePageIfNeeded(row: indexpath.item)
+            })
+            .disposed(by: bag)
+        
+        collectionView.rx.itemSelected
+            .subscribe(onNext: { [weak self] item in
+                guard let self = self else { return }
+                self.mainViewModel?.input.itemSelected(row: item.row)
+            })
+            .disposed(by: bag)
+        
+        // MARK: - Output
+        mainViewModel?.output.sectionObservable
+            .asDriver(onErrorJustReturn: [])
+            .drive(self.collectionView.rx.items(dataSource: createDatasource()))
+            .disposed(by: bag)
+        
+        mainViewModel?.output.pushDetailViewObservable
+            .asDriver(onErrorJustReturn: 0)
+            .drive(onNext: { [weak self] productID in
+                guard let self = self else { return }
+                self.navigationController?.pushViewController(
+                    DetailViewController.instance(
+                        viewModel: DetailViewModel(networker: Networker(),
+                                                   productID: productID)
+                    ), animated: true
+                )
             })
             .disposed(by: bag)
     }

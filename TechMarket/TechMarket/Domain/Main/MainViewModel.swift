@@ -14,10 +14,13 @@ import RxDataSources
 protocol MainViewModelInputInterface {
     func viewDidLoad()
     func updatePageIfNeeded(row: Int)
+    func itemSelected(row: Int)
 }
 
 protocol MainViewModelOutputInterface {
     var sectionObservable: Observable<[SectionModel<ProductSection, Model.Product>]> { get }
+    
+    var pushDetailViewObservable: Observable<Int> { get }
 }
 
 protocol MainViewModelable {
@@ -41,6 +44,7 @@ final class MainViewModel: MainViewModelable {
     private var hasNextPage = false
     private let viewDidLoadRelay = PublishRelay<Void>()
     private let sectionRelay = PublishRelay<[SectionModel<ProductSection, Model.Product>]>()
+    private let pushDetailViewRelay = PublishRelay<Int>()
     private var isRequest = false
     
     init(
@@ -88,10 +92,19 @@ extension MainViewModel: MainViewModelInputInterface {
             fetchProducts()
         }
     }
+    
+    func itemSelected(row: Int) {
+        guard let id = products[row].id else { return }
+        pushDetailViewRelay.accept(id)
+    }
 }
 
 extension MainViewModel: MainViewModelOutputInterface {
     var sectionObservable: Observable<[SectionModel<ProductSection, Model.Product>]> {
         return sectionRelay.asObservable()
+    }
+    
+    var pushDetailViewObservable: Observable<Int> {
+        return pushDetailViewRelay.asObservable()
     }
 }
