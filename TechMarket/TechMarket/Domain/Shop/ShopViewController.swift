@@ -22,6 +22,12 @@ enum TechMarketConstraint {
 final class ShopViewController: UIViewController, UIScrollViewDelegate {
     
     private var shopViewModel: ShopViewModelable?
+
+    private let searchController = UISearchController().then {
+        $0.searchBar.placeholder = "Search Products"
+        $0.isActive = true
+    }
+    
     private lazy var collectionView: UICollectionView = {
         let layout = configureFlowLayout()
         
@@ -65,6 +71,24 @@ final class ShopViewController: UIViewController, UIScrollViewDelegate {
             })
             .disposed(by: bag)
         
+        searchController.searchBar.rx.text
+            .flatMapLatest { text -> Observable<String> in
+                guard let text = text else { return .just("") }
+                return .just(text)
+            }
+            .subscribe(onNext: { [weak self] text in
+                guard let self = self else { return }
+                self.shopViewModel?.input.searchProduct(text: text)
+            })
+            .disposed(by: bag)
+        
+        searchController.searchBar.rx.cancelButtonClicked
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                self?.shopViewModel?.input.tapCancelButton()
+            })
+            .disposed(by: bag)
+        
         // MARK: - Output
         shopViewModel?.output.sectionObservable
             .asDriver(onErrorJustReturn: [])
@@ -90,9 +114,9 @@ final class ShopViewController: UIViewController, UIScrollViewDelegate {
         appearance.backgroundEffect = UIBlurEffect(style: .light)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.gray]
         navigationController?.navigationBar.standardAppearance = appearance
-        navigationItem.title = "TechMarket"
+        navigationItem.searchController = searchController
     }
-    
+
     private func configureFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumInteritemSpacing = TechMarketConstraint.minimumInteritemSpacing

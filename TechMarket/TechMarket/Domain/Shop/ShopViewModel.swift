@@ -15,6 +15,8 @@ protocol ShopViewModelInputInterface {
     func viewDidLoad()
     func updatePageIfNeeded(row: Int)
     func itemSelected(row: Int)
+    func searchProduct(text: String)
+    func tapCancelButton()
 }
 
 protocol ShopViewModelOutputInterface {
@@ -39,9 +41,10 @@ final class ShopViewModel: ShopViewModelable {
     private let bag = DisposeBag()
     private let networker: Networkerable
     private var products: [Model.Product] = []
+    private var searchText = ""
     private var currentPage = 1
     private let itemsPerPage = 10
-    private var hasNextPage = false
+    private var hasNextPage = true
     private let viewDidLoadRelay = PublishRelay<Void>()
     private let sectionRelay = PublishRelay<[SectionModel<ProductSection, Model.Product>]>()
     private let pushDetailViewRelay = PublishRelay<Int>()
@@ -53,25 +56,31 @@ final class ShopViewModel: ShopViewModelable {
         self.networker = networker
     }
     
-    private func fetchProducts() {
+    private func fetchProducts(searchText: String) {
         guard isRequest == false else { return }
         isRequest = true
         
         networker.request(
             TechMarketAPI.productConnection(
                 page: currentPage,
-                itemsPerPage: itemsPerPage
+                itemsPerPage: itemsPerPage,
+                searchValue: searchText
             ),
             dataType: Model.ProductResponse.self
         )
         .subscribe(onSuccess: { [weak self] model in
             guard let self = self else { return }
+            guard let hasNextPage = model.hasNext else { return }
             self.currentPage += 1
+            self.hasNextPage = hasNextPage
             self.products.append(contentsOf: model.pages)
             self.sectionRelay.accept(
                 [.init(model: .productResponse, items: self.products)]
             )
-        }, onFailure: { error in
+        }, onFailure: { [weak self] error in
+            guard let self = self else { return }
+            self.products = []
+            self.sectionRelay.accept([])
             print("error \(error)")
         }, onDisposed: { [weak self] in
             guard let self = self else { return }
@@ -83,18 +92,32 @@ final class ShopViewModel: ShopViewModelable {
 
 extension ShopViewModel: ShopViewModelInputInterface {
     func viewDidLoad() {
-        fetchProducts()
+        fetchProducts(searchText: searchText)
     }
     
     func updatePageIfNeeded(row: Int) {
-        if self.products.count - 1 <= row {
-            fetchProducts()
+        if hasNextPage && self.products.count - 1 <= row {
+            fetchProducts(searchText: searchText)
         }
     }
     
     func itemSelected(row: Int) {
         guard let id = products[row].id else { return }
         pushDetailViewRelay.accept(id)
+    }
+    
+    func searchProduct(text: String) {
+        self.products = []
+        self.currentPage = 1
+        searchText = text
+        fetchProducts(searchText: searchText)
+    }
+    
+    func tapCancelButton() {
+        self.products = []
+        self.currentPage = 1
+        searchText = ""
+        fetchProducts(searchText: searchText)
     }
 }
 
