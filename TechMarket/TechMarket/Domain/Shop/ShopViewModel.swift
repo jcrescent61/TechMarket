@@ -11,30 +11,30 @@ import RxSwift
 import RxRelay
 import RxDataSources
 
-protocol MainViewModelInputInterface {
+protocol ShopViewModelInputInterface {
     func viewDidLoad()
     func updatePageIfNeeded(row: Int)
     func itemSelected(row: Int)
 }
 
-protocol MainViewModelOutputInterface {
+protocol ShopViewModelOutputInterface {
     var sectionObservable: Observable<[SectionModel<ProductSection, Model.Product>]> { get }
     
     var pushDetailViewObservable: Observable<Int> { get }
 }
 
-protocol MainViewModelable {
-    var input: MainViewModelInputInterface { get }
-    var output: MainViewModelOutputInterface { get }
+protocol ShopViewModelable {
+    var input: ShopViewModelInputInterface { get }
+    var output: ShopViewModelOutputInterface { get }
 }
 
 enum ProductSection {
     case productResponse
 }
 
-final class MainViewModel: MainViewModelable {
-    var input: MainViewModelInputInterface { self }
-    var output: MainViewModelOutputInterface { self }
+final class ShopViewModel: ShopViewModelable {
+    var input: ShopViewModelInputInterface { self }
+    var output: ShopViewModelOutputInterface { self }
     
     private let bag = DisposeBag()
     private let networker: Networkerable
@@ -81,7 +81,7 @@ final class MainViewModel: MainViewModelable {
     }
 }
 
-extension MainViewModel: MainViewModelInputInterface {
+extension ShopViewModel: ShopViewModelInputInterface {
     func viewDidLoad() {
         fetchProducts()
     }
@@ -98,7 +98,7 @@ extension MainViewModel: MainViewModelInputInterface {
     }
 }
 
-extension MainViewModel: MainViewModelOutputInterface {
+extension ShopViewModel: ShopViewModelOutputInterface {
     var sectionObservable: Observable<[SectionModel<ProductSection, Model.Product>]> {
         return sectionRelay.asObservable()
     }

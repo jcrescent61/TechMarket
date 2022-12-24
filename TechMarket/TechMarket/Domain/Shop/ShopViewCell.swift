@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 import Then
 
-final class MainViewCell: UICollectionViewCell {
-    static let id: String = "\(MainViewCell.self)"
+final class ShopViewCell: UICollectionViewCell {
+    static let id: String = "\(ShopViewCell.self)"
     
     private let thumbnailImage = UIImageView().then {
         $0.image = UIImage(systemName: "questionmark.square.fill")
@@ -50,7 +50,7 @@ final class MainViewCell: UICollectionViewCell {
     }
 }
 
-extension MainViewCell {
+extension ShopViewCell {
     func setUpLabel(product: Model.Product) {
         thumbnailImage.loadImage(from: product.thumbnail)
         titleLabel.text = product.name

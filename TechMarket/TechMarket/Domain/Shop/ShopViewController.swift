@@ -19,9 +19,9 @@ enum TechMarketConstraint {
     static let numberOfCells: CGFloat = 2.5
 }
 
-final class MainViewController: UIViewController, UIScrollViewDelegate {
+final class ShopViewController: UIViewController, UIScrollViewDelegate {
     
-    private var mainViewModel: MainViewModelable?
+    private var shopViewModel: ShopViewModelable?
     private lazy var collectionView: UICollectionView = {
         let layout = configureFlowLayout()
         
@@ -35,17 +35,17 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
     
     private let bag = DisposeBag()
     
-    static func instance(viewModel: MainViewModelable) -> MainViewController {
-        let viewController = MainViewController(nibName: nil, bundle: nil)
-        viewController.mainViewModel = viewModel
+    static func instance(viewModel: ShopViewModelable) -> ShopViewController {
+        let viewController = ShopViewController(nibName: nil, bundle: nil)
+        viewController.shopViewModel = viewModel
         return viewController
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view = collectionView
-        collectionView.register(MainViewCell.self, forCellWithReuseIdentifier: MainViewCell.id)
-        mainViewModel?.input.viewDidLoad()
+        collectionView.register(ShopViewCell.self, forCellWithReuseIdentifier: ShopViewCell.id)
+        shopViewModel?.input.viewDidLoad()
         setNavigation()
         bind()
     }
@@ -54,24 +54,24 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
         // MARK: - Input
         collectionView.rx.willDisplayCell
             .subscribe (onNext: { [weak self] (_, indexpath) in
-                self?.mainViewModel?.input.updatePageIfNeeded(row: indexpath.item)
+                self?.shopViewModel?.input.updatePageIfNeeded(row: indexpath.item)
             })
             .disposed(by: bag)
         
         collectionView.rx.itemSelected
             .subscribe(onNext: { [weak self] item in
                 guard let self = self else { return }
-                self.mainViewModel?.input.itemSelected(row: item.row)
+                self.shopViewModel?.input.itemSelected(row: item.row)
             })
             .disposed(by: bag)
         
         // MARK: - Output
-        mainViewModel?.output.sectionObservable
+        shopViewModel?.output.sectionObservable
             .asDriver(onErrorJustReturn: [])
             .drive(self.collectionView.rx.items(dataSource: createDatasource()))
             .disposed(by: bag)
         
-        mainViewModel?.output.pushDetailViewObservable
+        shopViewModel?.output.pushDetailViewObservable
             .asDriver(onErrorJustReturn: 0)
             .drive(onNext: { [weak self] productID in
                 guard let self = self else { return }
@@ -111,9 +111,9 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
             switch section {
             case .productResponse:
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: MainViewCell.id,
+                    withReuseIdentifier: ShopViewCell.id,
                     for: indexPath
-                ) as? MainViewCell else {
+                ) as? ShopViewCell else {
                     return UICollectionViewCell()
                 }
                 cell.setUpLabel(product: product)
