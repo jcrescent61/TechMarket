@@ -28,7 +28,7 @@ extension Model {
         let name: String?
         let description: String?
         let thumbnail: String?
-        let currency: String?
+        let currency: Currency
         let price: Double?
         let bargainPrice: Double?
         let discountedPrice: Double?
@@ -51,5 +51,10 @@ extension Model {
             case createdAt = "created_at"
             case issuedAt = "issued_at"
         }
+    }
+    
+    enum Currency: String, Decodable {
+        case krw = "KRW"
+        case usd = "USD"
     }
 }

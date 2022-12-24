@@ -14,7 +14,7 @@ extension Model {
         let name: String?
         let description: String?
         let thumbnail: String?
-        let currency: String?
+        let currency: Currency?
         let price: Double?
         let bargainPrice: Double?
         let discountedPrice: Double?
@@ -85,7 +85,7 @@ struct ProductDetailComponent {
     let name: String? = nil
     let description: String? = nil
     let thumbnail: String? = nil
-    let currency: String? = nil
+    let currency: Model.Currency? = nil
     let price: Double? = nil
     let bargainPrice: Double? = nil
     let discountedPrice: Double? = nil
