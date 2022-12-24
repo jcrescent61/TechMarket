@@ -116,7 +116,7 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
                 ) as? MainViewCell else {
                     return UICollectionViewCell()
                 }
-                cell.setUpLabel(item: item)
+                cell.setUpLabel(product: item)
                 return cell
             }
         }

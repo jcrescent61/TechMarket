@@ -51,11 +51,11 @@ final class MainViewCell: UICollectionViewCell {
 }
 
 extension MainViewCell {
-    func setUpLabel(item: Model.Product) {
-        thumbnailImage.loadImage(from: item.thumbnail)
-        titleLabel.text = item.name
-        priceLabel.text = item.price?.formatNumber(iso: item.currency)
-        stockLabel.text = String(describing: item.stock)
+    func setUpLabel(product: Model.Product) {
+        thumbnailImage.loadImage(from: product.thumbnail)
+        titleLabel.text = product.name
+        priceLabel.text = product.price?.formatNumber(iso: product.currency)
+        stockLabel.text = String(describing: product.stock)
     }
     
     private func setUpUI() {
