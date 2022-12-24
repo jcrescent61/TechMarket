@@ -18,6 +18,11 @@ final class DetailViewController: UIViewController {
     private let bag = DisposeBag()
     private let detailView = DetailView(frame: .zero)
     
+    private let backButton = UIBarButtonItem().then {
+        $0.image = UIImage(systemName: "arrow.backward")
+        $0.tintColor = .black
+    }
+    
     static func instance(viewModel: DetailViewModelable) -> DetailViewController {
         let viewController = DetailViewController(nibName: nil, bundle: nil)
         viewController.detailViewModel = viewModel
@@ -28,7 +33,12 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         view = detailView
         detailViewModel?.input.viewDidLoad()
+        setupNavigationItems()
         bind()
+    }
+    
+    private func setupNavigationItems() {
+        navigationItem.leftBarButtonItem = backButton
     }
     
     private func bind() {
@@ -41,6 +51,7 @@ final class DetailViewController: UIViewController {
             .drive(onNext: { [weak self] product in
                 guard let self = self else { return }
                 self.detailView.configureView(product: product)
+                self.navigationItem.title = product.name
             })
             .disposed(by: bag)
         
@@ -55,6 +66,14 @@ final class DetailViewController: UIViewController {
             ) { indexPath, image, cell in
                 cell.configureCell(images: image)
             }
+            .disposed(by: bag)
+        
+        backButton.rx.tap
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.navigationController?.popViewController(animated: true)
+            })
             .disposed(by: bag)
     }
 }
