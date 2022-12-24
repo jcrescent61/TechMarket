@@ -163,6 +163,13 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		9BAD497E2956F21F002A5DDC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		9BC90E2E294EEAEC000FF10C = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +238,7 @@
 				9B0472F42956C20600078CF2 /* TabBarViewController.swift */,
 				9B0472F62956C9D700078CF2 /* Splash */,
 				9B2D0A67294FDA54001A8482 /* Shop */,
+				9BAD497E2956F21F002A5DDC /* Search */,
 				9BFE75BC2953A05C002DE839 /* Detail */,
 			);
 			path = Domain;
