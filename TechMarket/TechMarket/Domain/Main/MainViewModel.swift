@@ -66,6 +66,7 @@ final class MainViewModel: MainViewModelable {
         )
         .subscribe(onSuccess: { [weak self] model in
             guard let self = self else { return }
+            self.currentPage += 1
             self.products.append(contentsOf: model.pages)
             self.sectionRelay.accept(
                 [.init(model: .productResponse, items: self.products)]
