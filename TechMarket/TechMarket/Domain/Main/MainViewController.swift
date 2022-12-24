@@ -12,7 +12,7 @@ import RxCocoa
 import RxDataSources
 import Then
 
-enum ItemCollectionViewConstraint {
+enum TechMarketConstraint {
     static let deviceWidth = UIScreen.main.bounds.width
     static let deviceHeight = UIScreen.main.bounds.height
     static let minimumInteritemSpacing: CGFloat = 1
@@ -95,11 +95,11 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
     
     private func configureFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.minimumInteritemSpacing = ItemCollectionViewConstraint.minimumInteritemSpacing
-        flowLayout.itemSize.width = (ItemCollectionViewConstraint.deviceWidth
-                                     - ItemCollectionViewConstraint.minimumInteritemSpacing) / 2
-        flowLayout.itemSize.height = ItemCollectionViewConstraint.deviceHeight
-                                     / ItemCollectionViewConstraint.numberOfCells
+        flowLayout.minimumInteritemSpacing = TechMarketConstraint.minimumInteritemSpacing
+        flowLayout.itemSize.width = (TechMarketConstraint.deviceWidth
+                                     - TechMarketConstraint.minimumInteritemSpacing) / 2
+        flowLayout.itemSize.height = TechMarketConstraint.deviceHeight
+                                     / TechMarketConstraint.numberOfCells
         return flowLayout
     }
     
