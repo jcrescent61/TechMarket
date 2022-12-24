@@ -54,8 +54,7 @@ extension MainViewCell {
     func setUpLabel(item: Model.Product) {
         thumbnailImage.loadImage(from: item.thumbnail)
         titleLabel.text = item.name
-        currencyLabel.text = item.currency
-        priceLabel.text = String(describing: item.price)
+        priceLabel.text = item.price?.formatNumber(iso: item.currency)
         stockLabel.text = String(describing: item.stock)
     }
     

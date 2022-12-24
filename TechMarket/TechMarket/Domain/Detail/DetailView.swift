@@ -152,33 +152,33 @@ final class DetailView: UIView {
         titleLabel.text = model.name
         vendorLabel.text = model.vendors?.name
         descriptionLabel.text = model.description
-        configurePrice(
-            price: model.price,
-            bargainPrice: model.bargainPrice,
-            discountedPrice: model.discountedPrice
-        )
+        configurePrice(model: model)
     }
     
-    private func configurePrice(price: Double?, bargainPrice: Double?, discountedPrice: Double?) {
-        guard let price = price else { return }
+    private func configurePrice(model: Model.ProductDetail) {
+        guard let price = model.price,
+              let currency = model.currency else { return }
         
-        if discountedPrice == 0  {
-            discountedPriceLabel.text = String(price)
+        if model.discountedPrice == 0  {
+            discountedPriceLabel.text = price.formatNumber(iso: currency)
             discountPercentageLabel.isHidden = true
             priceLabel.isHidden = true
-            
-            discountedPriceLabel.snp.remakeConstraints {
-                $0.top.equalTo(priceLabel.snp.bottom).offset(5)
-                $0.left.equalTo(titleLabel.snp.left)
-                $0.right.equalTo(titleLabel.snp.right)
-            }
-            
+            remakeLabelConstraints()
         } else {
-            guard let bargainPrice = bargainPrice, let discountedPrice = discountedPrice else { return }
+            guard let bargainPrice = model.bargainPrice,
+                  let discountedPrice = model.discountedPrice else { return }
             let discountedPercentage = discountedPrice / price * 100
-            priceLabel.text = String(price)
+            priceLabel.text = price.formatNumber(iso: currency)
             discountPercentageLabel.text = String(format: "%.0f", discountedPercentage) + "%"
-            discountedPriceLabel.text = String(bargainPrice)
+            discountedPriceLabel.text = bargainPrice.formatNumber(iso: currency)
+        }
+    }
+    
+    private func remakeLabelConstraints() {
+        discountedPriceLabel.snp.remakeConstraints {
+            $0.top.equalTo(priceLabel.snp.bottom).offset(5)
+            $0.left.equalTo(titleLabel.snp.left)
+            $0.right.equalTo(titleLabel.snp.right)
         }
     }
     
