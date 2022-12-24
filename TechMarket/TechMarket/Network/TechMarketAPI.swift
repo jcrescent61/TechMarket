@@ -14,7 +14,7 @@ protocol ServerAPI {
 }
 
 enum TechMarketAPI {
-    case productConnection(page: Int, itemsPerPage: Int)
+    case productConnection(page: Int, itemsPerPage: Int, searchValue: String)
     case productDetail(Int)
 }
 
@@ -39,10 +39,12 @@ extension TechMarketAPI: ServerAPI {
     
     var params: [String: String]? {
         switch self {
-        case .productConnection(let page, let itemsPerPage):
+        case .productConnection(let page, let itemsPerPage, let searchValue):
+            
             return [
                 "page_no" : String(page),
-                "items_per_page": String(itemsPerPage)
+                "items_per_page": String(itemsPerPage),
+                "search_value": searchValue
             ]
         case .productDetail:
             return [:]
