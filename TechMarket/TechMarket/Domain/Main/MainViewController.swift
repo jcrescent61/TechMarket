@@ -105,7 +105,7 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
     
     private func createDatasource(
     ) -> RxCollectionViewSectionedReloadDataSource<SectionModel<ProductSection, Model.Product>> {
-        return .init { datasource, collectionView, indexPath, item in
+        return .init { datasource, collectionView, indexPath, product in
             let section = datasource.sectionModels[indexPath.section].identity
             
             switch section {
@@ -116,7 +116,7 @@ final class MainViewController: UIViewController, UIScrollViewDelegate {
                 ) as? MainViewCell else {
                     return UICollectionViewCell()
                 }
-                cell.setUpLabel(product: item)
+                cell.setUpLabel(product: product)
                 return cell
             }
         }

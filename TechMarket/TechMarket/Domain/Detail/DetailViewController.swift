@@ -38,9 +38,9 @@ final class DetailViewController: UIViewController {
                     ProductDetailComponent()
                 )
             )
-            .drive(onNext: { [weak self] model in
+            .drive(onNext: { [weak self] product in
                 guard let self = self else { return }
-                self.detailView.configureView(model: model)
+                self.detailView.configureView(product: product)
             })
             .disposed(by: bag)
         

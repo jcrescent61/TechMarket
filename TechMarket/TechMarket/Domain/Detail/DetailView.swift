@@ -148,25 +148,25 @@ final class DetailView: UIView {
         }
     }
     
-    func configureView(model: Model.ProductDetail) {
-        titleLabel.text = model.name
-        vendorLabel.text = model.vendors?.name
-        descriptionLabel.text = model.description
-        configurePrice(model: model)
+    func configureView(product: Model.ProductDetail) {
+        titleLabel.text = product.name
+        vendorLabel.text = product.vendors?.name
+        descriptionLabel.text = product.description
+        configurePrice(product: product)
     }
     
-    private func configurePrice(model: Model.ProductDetail) {
-        guard let price = model.price,
-              let currency = model.currency else { return }
+    private func configurePrice(product: Model.ProductDetail) {
+        guard let price = product.price,
+              let currency = product.currency else { return }
         
-        if model.discountedPrice == 0  {
+        if product.discountedPrice == 0  {
             discountedPriceLabel.text = price.formatNumber(iso: currency)
             discountPercentageLabel.isHidden = true
             priceLabel.isHidden = true
             remakeLabelConstraints()
         } else {
-            guard let bargainPrice = model.bargainPrice,
-                  let discountedPrice = model.discountedPrice else { return }
+            guard let bargainPrice = product.bargainPrice,
+                  let discountedPrice = product.discountedPrice else { return }
             let discountedPercentage = discountedPrice / price * 100
             priceLabel.text = price.formatNumber(iso: currency)
             discountPercentageLabel.text = String(format: "%.0f", discountedPercentage) + "%"
