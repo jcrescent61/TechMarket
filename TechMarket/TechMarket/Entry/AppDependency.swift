@@ -20,9 +20,7 @@ enum CompositionRoot {
         
         let window = UIWindow(windowScene: scene)
         window.rootViewController = UINavigationController(
-            rootViewController: MainViewController.instance(
-                viewModel: MainViewModel(networker: Networker())
-            )
+            rootViewController: SplashViewController()
         )
         window.backgroundColor = .white
         window.overrideUserInterfaceStyle = .light

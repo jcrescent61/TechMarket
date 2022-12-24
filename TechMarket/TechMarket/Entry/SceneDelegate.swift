@@ -8,10 +8,10 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
     var appDependency: AppDependency?
-
+    
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -23,6 +23,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = self.appDependency?.window
         self.window?.makeKeyAndVisible()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let window = self?.window else { return }
+            UIView.transition(
+                with: window,
+                duration: 0.3,
+                options: .transitionCrossDissolve,
+                animations: {
+                    self?.window?.rootViewController = TabBarViewController()
+                    self?.window?.makeKeyAndVisible()
+
+                }, completion: nil)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}
