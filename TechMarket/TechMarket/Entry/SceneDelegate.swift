@@ -25,15 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let window = self?.window else { return }
+            self?.window?.rootViewController = TabBarViewController()
             UIView.transition(
                 with: window,
                 duration: 0.3,
                 options: .transitionCrossDissolve,
-                animations: {
-                    self?.window?.rootViewController = TabBarViewController()
-                    self?.window?.makeKeyAndVisible()
-
-                }, completion: nil)
+                animations: nil,
+                completion: nil
+            )
         }
     }
 
