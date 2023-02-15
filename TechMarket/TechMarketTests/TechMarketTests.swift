@@ -132,6 +132,42 @@ final class TechMarketTests: XCTestCase {
         // then
         XCTAssertEqual(result, expect)
     }
+    
+    func test_searchProduct_하면_섹션모델이_방출된다() {
+        var result: [SectionModel<ProductSection, Model.Product>] = []
+        let expect: [SectionModel<ProductSection, Model.Product>] = [
+            .init(model: .productResponse, items: [.init(
+                id: nil,
+                vendorID: nil,
+                vendorName: nil,
+                name: nil,
+                description: nil,
+                thumbnail: nil,
+                currency: .krw,
+                price: nil,
+                bargainPrice: nil,
+                discountedPrice: nil,
+                stock: nil,
+                createdAt: nil,
+                issuedAt: nil
+            )
+            ])
+        ]
+        
+        // when
+        shopViewModel.output.sectionObservable
+            .subscribe { section in
+                print("섹션 입니다. \(section)")
+                print("리절트 입니다. \(result)")
+                result = section
+            }
+            .disposed(by: disposeBag)
+        
+        shopViewModel.input.searchProduct(text: "")
+        
+        // then
+        XCTAssertEqual(result, expect)
+    }
 }
 
 extension Model.Product: Equatable {
