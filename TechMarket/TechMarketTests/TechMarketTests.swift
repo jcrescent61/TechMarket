@@ -95,6 +95,43 @@ final class TechMarketTests: XCTestCase {
         // then
         XCTAssertEqual(result, expect)
     }
+    
+    func test_updatePageIfNeeded_하면_섹션모델이_방출된다() {
+        var result: [SectionModel<ProductSection, Model.Product>] = []
+        let expect: [SectionModel<ProductSection, Model.Product>] = [
+            .init(model: .productResponse, items: [.init(
+                id: nil,
+                vendorID: nil,
+                vendorName: nil,
+                name: nil,
+                description: nil,
+                thumbnail: nil,
+                currency: .krw,
+                price: nil,
+                bargainPrice: nil,
+                discountedPrice: nil,
+                stock: nil,
+                createdAt: nil,
+                issuedAt: nil
+            )
+            ])
+        ]
+        let expectation = XCTestExpectation(description: "APIPrivoderTaskExpectation")
+        
+        // when
+        shopViewModel.output.sectionObservable
+            .subscribe { section in
+                result = section
+                expectation.fulfill()
+            }
+            .disposed(by: disposeBag)
+        
+        shopViewModel.input.updatePageIfNeeded(row: 0)
+        wait(for: [expectation], timeout: 1.0)
+        
+        // then
+        XCTAssertEqual(result, expect)
+    }
 }
 
 extension Model.Product: Equatable {
