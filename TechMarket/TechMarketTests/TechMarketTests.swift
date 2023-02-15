@@ -6,31 +6,111 @@
 //
 
 import XCTest
+
+import RxSwift
+import RxRelay
+import RxDataSources
+
 @testable import TechMarket
 
-final class TechMarketTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+final class MockNetworker: Networkerable {
+    
+    let type: Decodable
+    
+    init(_ type: Decodable) {
+        self.type = type
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func request<T>(
+        _ api: ServerAPI
+    ) -> Single<T> where T : Decodable {
+        return Single<T>.create { [weak self] single in
+            guard let self = self else {
+                single(.failure(NSError(domain: "Optional unwrapping failed", code: -999)))
+                return Disposables.create()
+            }
+            single(.success(self.type as! T))
+            return Disposables.create()
         }
     }
+}
 
+final class TechMarketTests: XCTestCase {
+    private let disposeBag = DisposeBag()
+    private var shopViewModel = ShopViewModel(
+        networker: MockNetworker(
+            Model.ProductResponse(
+                pageNo: nil, itemsPerPage: nil, totalCount: nil, offset: nil, limit: nil, lastPage: nil, hasNext: nil, hasPrev: nil, pages: [.init(
+                    id: nil,
+                    vendorID: nil,
+                    vendorName: nil,
+                    name: nil,
+                    description: nil,
+                    thumbnail: nil,
+                    currency: .krw,
+                    price: nil,
+                    bargainPrice: nil,
+                    discountedPrice: nil,
+                    stock: nil,
+                    createdAt: nil,
+                    issuedAt: nil
+                )])
+        )
+    )
+    
+    func test_viewDidLoad_하면_섹션모델이_방출된다() {
+        var result: [SectionModel<ProductSection, Model.Product>] = []
+        let expect: [SectionModel<ProductSection, Model.Product>] = [
+            .init(model: .productResponse, items: [.init(
+                id: nil,
+                vendorID: nil,
+                vendorName: nil,
+                name: nil,
+                description: nil,
+                thumbnail: nil,
+                currency: .krw,
+                price: nil,
+                bargainPrice: nil,
+                discountedPrice: nil,
+                stock: nil,
+                createdAt: nil,
+                issuedAt: nil
+            )
+            ])
+        ]
+        let expectation = XCTestExpectation(description: "APIPrivoderTaskExpectation")
+        
+        // when
+        shopViewModel.output.sectionObservable
+            .subscribe { section in
+                result = section
+                expectation.fulfill()
+            }
+            .disposed(by: disposeBag)
+        
+        shopViewModel.input.viewDidLoad()
+        
+        wait(for: [expectation], timeout: 1.0)
+        
+        // then
+        XCTAssertEqual(result, expect)
+    }
+}
+
+extension Model.Product: Equatable {
+    public static func == (lhs: Model.Product, rhs: Model.Product) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.vendorID == rhs.vendorID &&
+        lhs.vendorName == rhs.vendorName &&
+        lhs.name == rhs.name &&
+        lhs.description == rhs.description &&
+        lhs.thumbnail == rhs.thumbnail &&
+        lhs.currency == rhs.currency &&
+        lhs.price == rhs.price &&
+        lhs.bargainPrice == rhs.bargainPrice &&
+        lhs.discountedPrice == rhs.discountedPrice &&
+        lhs.stock == rhs.stock &&
+        lhs.createdAt == rhs.createdAt &&
+        lhs.issuedAt == rhs.issuedAt
+    }
 }
