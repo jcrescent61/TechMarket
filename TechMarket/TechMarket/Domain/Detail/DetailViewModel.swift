@@ -45,10 +45,9 @@ final class DetailViewModel: DetailViewModelable {
     
     private func fetchDetailProduct() {
         networker.request(
-            TechMarketAPI.productDetail(productID),
-            dataType: Model.ProductDetail.self
+            TechMarketAPI.productDetail(productID)
         )
-        .subscribe(onSuccess: { [weak self] model in
+        .subscribe(onSuccess: { [weak self] (model: Model.ProductDetail) in
             guard let self = self else { return }
             self.product = model
             guard let product = self.product else { return }

@@ -40,8 +40,7 @@ extension URLSession: Requester {
 
 protocol Networkerable {
     func request<T: Decodable>(
-        _ api: ServerAPI,
-        dataType: T.Type
+        _ api: ServerAPI
     ) -> Single<T>
 }
 
@@ -64,8 +63,7 @@ class Networker {
 
 extension Networker: Networkerable {
     func request<T: Decodable>(
-        _ api: ServerAPI,
-        dataType: T.Type
+        _ api: ServerAPI
     ) -> Single<T> {
         switch api.method {
         case .get:
