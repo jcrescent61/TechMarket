@@ -24,7 +24,7 @@
 		9BC90E3F294EEAEC000FF10C /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E3E294EEAEC000FF10C /* ShopViewController.swift */; };
 		9BC90E44294EEAED000FF10C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9BC90E43294EEAED000FF10C /* Assets.xcassets */; };
 		9BC90E47294EEAED000FF10C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9BC90E45294EEAED000FF10C /* LaunchScreen.storyboard */; };
-		9BC90E52294EEAED000FF10C /* TechMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E51294EEAED000FF10C /* TechMarketTests.swift */; };
+		9BC90E52294EEAED000FF10C /* ShopViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E51294EEAED000FF10C /* ShopViewModelTests.swift */; };
 		9BC90E5C294EEAED000FF10C /* TechMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E5B294EEAED000FF10C /* TechMarketUITests.swift */; };
 		9BC90E5E294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E5D294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift */; };
 		9BC90E6C294EEB8B000FF10C /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC90E6B294EEB8B000FF10C /* AppDependency.swift */; };
@@ -77,7 +77,7 @@
 		9BC90E46294EEAED000FF10C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9BC90E48294EEAED000FF10C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9BC90E4D294EEAED000FF10C /* TechMarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TechMarketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9BC90E51294EEAED000FF10C /* TechMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechMarketTests.swift; sourceTree = "<group>"; };
+		9BC90E51294EEAED000FF10C /* ShopViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModelTests.swift; sourceTree = "<group>"; };
 		9BC90E57294EEAED000FF10C /* TechMarketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TechMarketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BC90E5B294EEAED000FF10C /* TechMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechMarketUITests.swift; sourceTree = "<group>"; };
 		9BC90E5D294EEAED000FF10C /* TechMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 		9BC90E50294EEAED000FF10C /* TechMarketTests */ = {
 			isa = PBXGroup;
 			children = (
-				9BC90E51294EEAED000FF10C /* TechMarketTests.swift */,
+				9BC90E51294EEAED000FF10C /* ShopViewModelTests.swift */,
 			);
 			path = TechMarketTests;
 			sourceTree = "<group>";
@@ -574,7 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9BC90E52294EEAED000FF10C /* TechMarketTests.swift in Sources */,
+				9BC90E52294EEAED000FF10C /* ShopViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

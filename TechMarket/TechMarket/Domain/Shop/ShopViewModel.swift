@@ -65,18 +65,17 @@ final class ShopViewModel: ShopViewModelable {
                 page: currentPage,
                 itemsPerPage: itemsPerPage,
                 searchValue: searchText
-            ),
-            dataType: Model.ProductResponse.self
+            )
         )
-        .subscribe(onSuccess: { [weak self] model in
+        .subscribe(onSuccess: { [weak self] (model: Model.ProductResponse) in
             guard let self = self else { return }
-            guard let hasNextPage = model.hasNext else { return }
-            self.currentPage += 1
-            self.hasNextPage = hasNextPage
             self.products.append(contentsOf: model.pages)
             self.sectionRelay.accept(
                 [.init(model: .productResponse, items: self.products)]
             )
+            guard let hasNextPage = model.hasNext else { return }
+            self.currentPage += 1
+            self.hasNextPage = hasNextPage
         }, onFailure: { [weak self] error in
             guard let self = self else { return }
             self.products = []
