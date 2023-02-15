@@ -73,6 +73,9 @@ final class ShopViewModel: ShopViewModelable {
             self.sectionRelay.accept(
                 [.init(model: .productResponse, items: self.products)]
             )
+            guard let hasNextPage = model.hasNext else { return }
+            self.currentPage += 1
+            self.hasNextPage = hasNextPage
         }, onFailure: { [weak self] error in
             guard let self = self else { return }
             self.products = []
