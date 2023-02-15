@@ -1,6 +1,6 @@
 //
-//  TechMarketTests.swift
-//  TechMarketTests
+//  ShopViewModelTests.swift
+//  ShopViewModelTests
 //
 //  Created by Ellen J on 2022/12/18.
 //
@@ -35,7 +35,7 @@ final class MockNetworker: Networkerable {
     }
 }
 
-final class TechMarketTests: XCTestCase {
+final class ShopViewModelTests: XCTestCase {
     private let disposeBag = DisposeBag()
     private var shopViewModel = ShopViewModel(
         networker: MockNetworker(
